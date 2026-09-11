@@ -1,0 +1,1 @@
+{"root":["./src/app.test.tsx","./src/app.tsx","./src/main.tsx","./src/test-setup.ts","./src/components/footer.tsx","./src/components/todoinput.tsx","./src/components/todolist.tsx","./src/lib/id.test.ts","./src/lib/id.ts","./src/lib/todos.test.ts","./src/lib/todos.ts"],"version":"5.9.3"}
