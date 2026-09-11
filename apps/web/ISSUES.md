@@ -1,6 +1,8 @@
 # Seeded issues for the factory
 
-Note: issue 5 below has an intentionally flaky test, `src/lib/id.test.ts` > `generates unique ids`. The id generator combines the current millisecond with a random 0-99 suffix, so generating 10 ids in a tight loop occasionally collides. This is by design and should stay flaky until the underlying bug is fixed.
+The todo app lives in `apps/web` of this repository; paths are repo-relative.
+
+Note: issue 5 below has an intentionally flaky test, `apps/web/src/lib/id.test.ts` > `generates unique ids`. The id generator combines the current millisecond with a random 0-99 suffix, so generating 10 ids in a tight loop occasionally collides. This is by design and should stay flaky until the underlying bug is fixed.
 
 ## 1. Whitespace-only todos can be added
 **Labels:** factory
@@ -20,7 +22,7 @@ Clicking "Clear completed" is supposed to remove the todos I've finished, but in
 
 ## 5. Duplicate ids cause the wrong todo to toggle
 **Labels:** factory
-Occasionally, checking off one todo checks a different one instead, or two todos seem to share state. This happens when two todos get created with the same id. The generator is in `src/lib/id.ts`; it builds ids from the current millisecond plus a random 0-99 suffix, so two todos added in quick succession can collide. Please make ids reliably unique.
+Occasionally, checking off one todo checks a different one instead, or two todos seem to share state. This happens when two todos get created with the same id. The generator is in `apps/web/src/lib/id.ts`; it builds ids from the current millisecond plus a random 0-99 suffix, so two todos added in quick succession can collide. Please make ids reliably unique.
 
 ## 6. Todos are not saved between visits
 **Labels:** factory

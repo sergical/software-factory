@@ -10,5 +10,13 @@
         "useFilenamingConvention": "off"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      // eve's docs opt into the provided glob and grep tools with a one-line
+      // re-export of the framework definition.
+      "includes": ["agent/**/tools/glob.ts", "agent/**/tools/grep.ts"],
+      "linter": { "rules": { "performance": { "noBarrelFile": "off" } } }
+    }
+  ]
 }

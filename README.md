@@ -2,8 +2,10 @@
 
 Demo for the agent tracing and cost talk. Two workspaces:
 
-- `apps/factory`: Vercel's eve software-factory template ("Foreman") with Sentry tracing added in `agent/instrumentation.ts`.
+- `apps/factory`: Vercel's eve software-factory template ("Foreman") with Sentry tracing added in `agent/instrumentation/`. See `apps/factory/INSTRUMENTATION.md`.
 - `apps/web`: a small Vite + React todo app with seeded defects. The factory fixes them from GitHub issues. See `apps/web/ISSUES.md`.
+
+The factory operates on its own repository: `FACTORY_REPO` is `sergical/software-factory`, the target app is `apps/web`, and `FACTORY_SETUP_COMMAND` is `pnpm install` at the repository root.
 
 ## Local checks (no credentials)
 
@@ -14,55 +16,42 @@ pnpm --filter @software-factory/web test   # `generates unique ids` is flaky on 
 pnpm --filter @software-factory/web lint
 ```
 
-## Accounts and keys
+## Accounts
 
-1. Vercel account with AI Gateway enabled. The factory reads model credentials through Vercel Connect, so no gateway key goes in `.env`.
-2. Vercel project for `apps/factory` with Blob and Sandbox enabled.
-3. Vercel Connect GitHub connector with write access to the target repository (contents, issues, pull requests).
-4. Sentry project (Node.js platform). Copy its DSN.
-5. Optional: Vercel Connect Linear connector.
+Done:
+
+- GitHub repository `sergical/software-factory` (public) with the `factory` label and issues #1 to #6 from `apps/web/ISSUES.md`.
+- Vercel project `software-factory` on the `sentry` team, linked from `apps/factory`, with Blob store `software-factory-brain` connected.
+- Sentry project `software-factory` in `sentry-developer-experience`, DSN in `apps/factory/.env` (gitignored).
+- Vercel env vars `FACTORY_REPO`, `FACTORY_SETUP_COMMAND`, `FACTORY_LABEL`, `BLOB_READ_WRITE_TOKEN`.
 
 ## Runbook
 
-Steps marked "interactive" open a browser or prompt; run them yourself.
+Steps marked "interactive" open a browser; run them yourself.
 
-1. Push `apps/web` to a new GitHub repository. Its `owner/repo` is `FACTORY_REPO`.
-   ```sh
-   cd apps/web && git init && git add . && git commit -m "Seed todo app"
-   gh repo create <owner>/software-factory-web --private --source . --push   # interactive
-   ```
-2. Link the factory to Vercel.
+1. Create the Vercel Connect GitHub connector and install the GitHub App on `sergical/software-factory` (contents, issues, pull requests).
    ```sh
    cd apps/factory
-   vercel login                       # interactive
-   vercel link                        # interactive: create a new project
+   vercel connect create github --name foreman-agent --triggers --scope sentry   # interactive
    ```
-3. Create the connectors and install the GitHub App on the `apps/web` repository.
+   Put the UID in `apps/factory/.env` as `GITHUB_CONNECTOR`, then
+   `vercel env add GITHUB_CONNECTOR production --scope sentry`.
+2. Add the secrets to the Vercel project (once):
    ```sh
-   vercel connect create github       # interactive; note the UID
-   vercel connect create linear       # optional
+   vercel env add SENTRY_DSN production --sensitive --scope sentry
+   vercel env add AI_GATEWAY_API_KEY production --sensitive --scope sentry
    ```
-4. Create the Blob store from the Vercel dashboard (Storage > Create > Blob) and connect it to the project. Interactive.
-5. Write `apps/factory/.env` from `.env.example`:
-   - `GITHUB_CONNECTOR`, `LINEAR_CONNECTOR`: the connector UIDs.
-   - `FACTORY_REPO`: `<owner>/software-factory-web`.
-   - `FACTORY_SETUP_COMMAND="pnpm install"`.
-   - `SENTRY_DSN`: from the Sentry project.
-6. Run the factory locally in a separate terminal (do not background it).
+3. Run the factory in a separate terminal (do not background it), or deploy.
    ```sh
-   cd apps/factory && pnpm dev        # eve dev; interactive first run
+   cd apps/factory && pnpm dev        # eve dev
+   vercel deploy --scope sentry       # or
    ```
-   Or deploy: `vercel env pull`, then `vercel deploy`.
-7. File the issues from `apps/web/ISSUES.md` on the web repository and add the `factory` label to each. One issue at a time gives the cleanest traces.
-   ```sh
-   gh issue create --repo <owner>/software-factory-web --label factory --title "..." --body "..."
-   ```
-8. Open Sentry > Insights > AI Agents. Each labelled issue is one trace: the orchestrator turn, then `classifier`, `analyst`, `implementer`, and `reviewer` turns, each with `gen_ai.*` model spans and `execute_tool` spans. The issue number is `ai.settings.context.factory.issue_number` on the `agent.step` spans (Sentry strips it from the mapped `gen_ai` spans).
+4. Add the `factory` label to one issue at a time; that gives the cleanest traces.
+5. Open Sentry > Insights > AI Agents. Each labelled issue is one trace: the Foreman turn, then `classifier`, `analyst`, `implementer`, and `reviewer` turns with `gen_ai.*` model spans and `execute_tool` spans. Filter by `factory.issue_number`.
 
 ## Instrumentation
 
-`apps/factory/agent/instrumentation.ts` is eve's single-file instrumentation
-layout. Its `setup` runs `Sentry.init` with `vercelAIIntegration({ force: true })`.
-Sentry owns the OpenTelemetry provider; eve emits its `agent.*` spans and the
-AI SDK spans through the same global provider, so all of them reach Sentry.
-Unset `SENTRY_DSN` disables it.
+`apps/factory/agent/instrumentation/sentry.ts` starts the Sentry SDK and
+`sentry-spans.ts` hands Sentry's span processor to eve's OpenTelemetry
+pipeline. Unset `SENTRY_DSN` disables it. Details and the discrepancies with
+Sentry's docs are in `apps/factory/INSTRUMENTATION.md`.

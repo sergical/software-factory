@@ -1,2 +1,4 @@
 packages:
   - apps/*
+minimumReleaseAgeExclude:
+  - eve@0.54.2
