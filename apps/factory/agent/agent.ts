@@ -16,7 +16,6 @@ import { MODELS } from "./lib/models.js";
  */
 export default defineAgent({
   compaction: { thresholdPercent: 0.75 },
-  experimental: { instrumentationProviders: true },
   limits: {
     maxOutputTokensPerSession: 100_000,
   },
