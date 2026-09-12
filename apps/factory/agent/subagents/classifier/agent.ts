@@ -1,5 +1,5 @@
 import { defineAgent } from "eve";
-import { MODELS } from "../../lib/models.js";
+import { MODELS, PROMPT_CACHE } from "../../lib/models.js";
 
 /**
  * Station 1: triage.
@@ -19,6 +19,7 @@ export default defineAgent({
     "clarification. Fast triage only; no analysis or implementation. The caller passes " +
     "the work item verbatim in the message.",
   model: MODELS.classifier,
+  modelOptions: PROMPT_CACHE.classifier,
   outputSchema: {
     additionalProperties: false,
     properties: {

@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+patchedDependencies:
+  '@sentry/server-utils@11.0.0-beta.2': cef28c8127624805773838ed2d39e50dc2a1e601923f41c3d30971be658b3011
+
 importers:
 
   .:
@@ -2545,7 +2548,7 @@ snapshots:
       '@sentry/core': 11.0.0-beta.2
       '@sentry/opentelemetry': 11.0.0-beta.2(@opentelemetry/api@1.9.1)
       '@sentry/server-runtime-injection': 11.0.0-beta.2
-      '@sentry/server-utils': 11.0.0-beta.2
+      '@sentry/server-utils': 11.0.0-beta.2(patch_hash=cef28c8127624805773838ed2d39e50dc2a1e601923f41c3d30971be658b3011)
     transitivePeerDependencies:
       - rollup
       - webpack
@@ -2559,9 +2562,9 @@ snapshots:
   '@sentry/server-runtime-injection@11.0.0-beta.2':
     dependencies:
       '@sentry/core': 11.0.0-beta.2
-      '@sentry/server-utils': 11.0.0-beta.2
+      '@sentry/server-utils': 11.0.0-beta.2(patch_hash=cef28c8127624805773838ed2d39e50dc2a1e601923f41c3d30971be658b3011)
 
-  '@sentry/server-utils@11.0.0-beta.2':
+  '@sentry/server-utils@11.0.0-beta.2(patch_hash=cef28c8127624805773838ed2d39e50dc2a1e601923f41c3d30971be658b3011)':
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@sentry/conventions': 0.20.0

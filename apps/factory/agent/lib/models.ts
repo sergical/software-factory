@@ -6,3 +6,12 @@ export const MODELS = {
   researcher: "mistral/mistral-large-3",
   reviewer: "mistral/mistral-large-3", // a different model than the implementer on purpose: independent review
 } as const;
+
+// Mistral only caches a prompt when the request carries a cache key. One key per
+// station keeps the shared system prompt warm across runs and within a session.
+export const PROMPT_CACHE = Object.fromEntries(
+  Object.keys(MODELS).map((station) => [
+    station,
+    { providerOptions: { mistral: { promptCacheKey: `factory-${station}` } } },
+  ]),
+) as Record<keyof typeof MODELS, { providerOptions: { mistral: { promptCacheKey: string } } }>;
