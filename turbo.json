@@ -1,7 +1,11 @@
 {
   "$schema": "https://turbo.build/schema.json",
+  "envMode": "loose",
   "tasks": {
-    "build": { "dependsOn": ["^build"], "outputs": ["dist/**", ".eve/**"] },
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", ".eve/**", ".output/**", ".vercel/output/**"]
+    },
     "typecheck": { "dependsOn": ["^build"] },
     "lint": {},
     "test": { "dependsOn": ["^build"] },
