@@ -1,5 +1,5 @@
 import { defineAgent } from "eve";
-import { MODELS } from "../../lib/models.js";
+import { MODELS, PROMPT_CACHE } from "../../lib/models.js";
 
 /**
  * Station 4: independent review.
@@ -22,6 +22,7 @@ export default defineAgent({
     "branch name, and the implementer's report in the message, plus an artifact id when " +
     "the analyst saved its full detail as one.",
   model: MODELS.reviewer,
+  modelOptions: PROMPT_CACHE.reviewer,
   outputSchema: {
     additionalProperties: false,
     properties: {

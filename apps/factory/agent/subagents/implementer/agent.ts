@@ -1,5 +1,5 @@
 import { defineAgent } from "eve";
-import { MODELS } from "../../lib/models.js";
+import { MODELS, PROMPT_CACHE } from "../../lib/models.js";
 
 /**
  * Station 3: implementation.
@@ -23,6 +23,7 @@ export default defineAgent({
     "as one; on a revision run it also passes the existing branch and the reviewer's " +
     "findings.",
   model: MODELS.implementer,
+  modelOptions: PROMPT_CACHE.implementer,
   outputSchema: {
     additionalProperties: false,
     properties: {

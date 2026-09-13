@@ -1,5 +1,5 @@
 import { defineAgent } from "eve";
-import { MODELS } from "./lib/models.js";
+import { MODELS, PROMPT_CACHE } from "./lib/models.js";
 
 /**
  * Root agent runtime configuration.
@@ -20,4 +20,5 @@ export default defineAgent({
     maxOutputTokensPerSession: 100_000,
   },
   model: MODELS.orchestrator,
+  modelOptions: PROMPT_CACHE.orchestrator,
 });
