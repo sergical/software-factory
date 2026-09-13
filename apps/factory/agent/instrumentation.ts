@@ -5,6 +5,7 @@ import {
   httpIntegration,
   init,
   setConversationId,
+  vercelAIIntegration,
 } from "@sentry/node";
 import {
   defineInstrumentation,
@@ -60,6 +61,10 @@ export default defineInstrumentation({
       integrations: [
         consoleLoggingIntegration(),
         httpIntegration({ disableIncomingRequestSpans: true }),
+        // Eve passes recordInputs/recordOutputs per call from its channel audience policy, and a
+        // channel without a declared audience resolves to false outside `eve dev`. The integration
+        // option wins over the per-call value, so the transcript reaches Sentry on every channel.
+        vercelAIIntegration({ recordInputs: true, recordOutputs: true }),
       ],
       tracesSampleRate: 1,
     });
