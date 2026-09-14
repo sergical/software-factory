@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Footer } from "./components/Footer";
 import { TodoInput } from "./components/TodoInput";
 import { TodoList } from "./components/TodoList";
@@ -13,11 +13,29 @@ import {
   toggleTodo,
 } from "./lib/todos";
 
-// Gap: todos live only in React state and are lost on reload. See
-// ISSUES.md for the request to persist them in localStorage.
+const STORAGE_KEY = "todos";
+
+function loadTodos(): Todo[] {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (!stored) return [];
+  try {
+    return JSON.parse(stored);
+  } catch {
+    return [];
+  }
+}
+
+function saveTodos(todos: Todo[]): void {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(todos));
+}
+
 export default function App() {
-  const [todos, setTodos] = useState<Todo[]>([]);
+  const [todos, setTodos] = useState<Todo[]>(loadTodos());
   const [filter, setFilter] = useState<Filter>("all");
+
+  useEffect(() => {
+    saveTodos(todos);
+  }, [todos]);
 
   function handleAdd(text: string) {
     setTodos((current) => [...current, createTodo(text)]);
