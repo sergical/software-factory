@@ -67,11 +67,9 @@ describe("filterTodos", () => {
 });
 
 describe("clearCompleted", () => {
-  // Seeded bug: this currently keeps only completed todos instead of
-  // dropping them. See ISSUES.md.
-  it("currently keeps only completed todos (seeded bug)", () => {
+  it("removes completed todos and keeps non-completed ones", () => {
     const result = clearCompleted(makeTodos());
-    expect(result.map((t) => t.id)).toEqual(["2"]);
+    expect(result.map((t) => t.id)).toEqual(["1", "3"]);
   });
 });
 

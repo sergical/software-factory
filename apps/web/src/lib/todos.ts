@@ -34,8 +34,8 @@ export function filterTodos(todos: Todo[], filter: Filter): Todo[] {
 }
 
 export function clearCompleted(todos: Todo[]): Todo[] {
-  // Bug: this should drop completed todos, but it keeps only completed ones.
-  return todos.filter((todo) => todo.completed);
+  // Fixed: now drops completed todos and keeps non-completed ones.
+  return todos.filter((todo) => !todo.completed);
 }
 
 export function countRemaining(todos: Todo[]): number {
