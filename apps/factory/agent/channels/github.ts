@@ -233,8 +233,9 @@ export default githubChannel({
       : null;
   },
   onIssue: async (ctx, issue) => {
-    const { labels } = issue.raw as {
+    const { labels, title } = issue.raw as {
       labels?: ReadonlyArray<{ name?: unknown }>;
+      title?: unknown;
     };
     const hasFactoryLabel =
       Array.isArray(labels) &&
@@ -248,7 +249,11 @@ export default githubChannel({
       return null;
     }
     return {
-      auth: stampAutonomous(defaultGitHubAuth(ctx), issue.issueNumber),
+      auth: stampAutonomous(
+        defaultGitHubAuth(ctx),
+        issue.issueNumber,
+        typeof title === "string" ? title : undefined
+      ),
       context: [FACTORY_INTAKE_TASK],
     };
   },

@@ -51,6 +51,7 @@ export function stampTrusted(auth: SessionAuthContext): SessionAuthContext {
  * {@link intakeIssueNumber}.
  */
 export const INTAKE_ISSUE_ATTRIBUTE = "intakeIssue";
+export const INTAKE_ISSUE_TITLE_ATTRIBUTE = "intakeIssueTitle";
 
 /**
  * Rewrites a channel auth into the unattended factory principal, carrying the
@@ -64,13 +65,17 @@ export const INTAKE_ISSUE_ATTRIBUTE = "intakeIssue";
  */
 export function stampAutonomous(
   auth: SessionAuthContext,
-  intakeIssue: number
+  intakeIssue: number,
+  intakeIssueTitle?: string
 ): SessionAuthContext {
   return {
     ...auth,
     attributes: {
       ...auth.attributes,
       [INTAKE_ISSUE_ATTRIBUTE]: String(intakeIssue),
+      ...(intakeIssueTitle
+        ? { [INTAKE_ISSUE_TITLE_ATTRIBUTE]: intakeIssueTitle }
+        : {}),
     },
     principalId: AUTONOMOUS_PRINCIPAL,
     principalType: "service",
@@ -93,6 +98,20 @@ export function intakeIssueNumber(
   }
   const issue = Number(stamped);
   return Number.isSafeInteger(issue) && issue > 0 ? issue : null;
+}
+
+/**
+ * The title of the issue an unattended run was dispatched from, or null when
+ * the run did not start from an issue (CI fixes stamp only a PR number).
+ */
+export function intakeIssueTitle(
+  auth: SessionAuthContext | null
+): string | null {
+  if (!isAutonomous(auth)) {
+    return null;
+  }
+  const stamped = auth?.attributes[INTAKE_ISSUE_TITLE_ATTRIBUTE];
+  return typeof stamped === "string" && stamped !== "" ? stamped : null;
 }
 
 /**
