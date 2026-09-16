@@ -41,7 +41,19 @@ describe("App", () => {
     await user.type(screen.getByLabelText("New todo"), "buy milk");
     await user.click(screen.getByRole("button", { name: "Add" }));
 
-    expect(screen.getByText("1 items left")).toBeInTheDocument();
+    expect(screen.getByText("1 item left")).toBeInTheDocument();
+  });
+
+  it("shows the pluralized remaining count text for counts other than 1", async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.type(screen.getByLabelText("New todo"), "buy milk");
+    await user.click(screen.getByRole("button", { name: "Add" }));
+    await user.type(screen.getByLabelText("New todo"), "walk the dog");
+    await user.click(screen.getByRole("button", { name: "Add" }));
+
+    expect(screen.getByText("2 items left")).toBeInTheDocument();
   });
 
   it("decrements the remaining count once a todo is completed", async () => {

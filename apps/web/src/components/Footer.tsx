@@ -17,8 +17,9 @@ export function Footer({
 }: FooterProps) {
   return (
     <footer className="footer">
-      {/* Bug: should pluralise "item" when remaining !== 1. */}
-      <span className="count">{remaining} items left</span>
+      <span className="count">
+        {remaining} {remaining === 1 ? "item" : "items"} left
+      </span>
       <div className="filters">
         {FILTERS.map((option) => (
           <button
