@@ -9,7 +9,11 @@ export type Todo = {
 export type Filter = "all" | "active" | "completed";
 
 export function createTodo(text: string): Todo {
-  return { id: newId(), text, completed: false };
+  const trimmedText = text.trim();
+  if (trimmedText === "") {
+    throw new Error("Todo text cannot be empty or whitespace-only");
+  }
+  return { id: newId(), text: trimmedText, completed: false };
 }
 
 export function toggleTodo(todos: Todo[], id: string): Todo[] {
