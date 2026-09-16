@@ -24,6 +24,12 @@ describe("createTodo", () => {
     expect(todo.completed).toBe(false);
     expect(todo.id.length).toBeGreaterThan(0);
   });
+
+  it("throws an error if the input text is whitespace-only", () => {
+    expect(() => createTodo("   ")).toThrow(
+      "Todo text cannot be empty or whitespace-only",
+    );
+  });
 });
 
 describe("toggleTodo", () => {
