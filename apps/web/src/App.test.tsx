@@ -34,14 +34,16 @@ describe("App", () => {
     expect(checkbox).toBeChecked();
   });
 
-  it("shows the remaining count text", async () => {
+  it("does not add a todo when the input is whitespace-only", async () => {
     const user = userEvent.setup();
     render(<App />);
 
-    await user.type(screen.getByLabelText("New todo"), "buy milk");
+    const input = screen.getByLabelText("New todo");
+    await user.type(input, "   ");
     await user.click(screen.getByRole("button", { name: "Add" }));
 
-    expect(screen.getByText("1 items left")).toBeInTheDocument();
+    expect(screen.queryByText("   ")).not.toBeInTheDocument();
+    expect(input).toHaveFocus();
   });
 
   it("decrements the remaining count once a todo is completed", async () => {
