@@ -24,7 +24,7 @@ export function Footer({
           <button
             key={option}
             type="button"
-            className={option === filter ? "active" : undefined}
+            aria-pressed={option === filter}
             onClick={() => onFilterChange(option)}
           >
             {option}
