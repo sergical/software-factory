@@ -32,8 +32,14 @@ export const CONTEXT_WINDOW_TOKENS = {
   implementer: 128_000,
 } satisfies Partial<Record<keyof typeof MODELS, number>>;
 
-// Mistral caches repeated prompt prefixes on its own, so the stations send no
-// cache options.
+// Mistral only caches a prompt when the request carries a cache key. One key per
+// station keeps the shared system prompt warm across runs and within a session.
 export const PROMPT_CACHE = Object.fromEntries(
-  Object.keys(MODELS).map((station) => [station, { providerOptions: { mistral: {} } }])
-) as Record<keyof typeof MODELS, { providerOptions: { mistral: Record<string, never> } }>;
+  Object.keys(MODELS).map((station) => [
+    station,
+    { providerOptions: { mistral: { promptCacheKey: `factory-${station}` } } },
+  ])
+) as Record<
+  keyof typeof MODELS,
+  { providerOptions: { mistral: { promptCacheKey: string } } }
+>;
