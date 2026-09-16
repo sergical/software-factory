@@ -69,7 +69,7 @@ export const FACTORY_LABEL = process.env.FACTORY_LABEL ?? "factory";
  * with the `FACTORY_BRANCH_PREFIX` environment variable.
  *
  * @remarks
- * The implementer names its branches `factory/<type>-<slug>`; the GitHub
+ * The implementer names its branches `factory/<type>-<issue>-<slug>`; the GitHub
  * channel uses the prefix to recognize the factory's own pull requests, so
  * the red-CI fix loop never runs on branches people pushed. The implementer's
  * instructions carry the default prefix as prose, so an override should keep

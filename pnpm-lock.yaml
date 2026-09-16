@@ -5,7 +5,7 @@ settings:
   excludeLinksFromLockfile: false
 
 patchedDependencies:
-  '@sentry/server-utils@11.0.0-beta.2': cef28c8127624805773838ed2d39e50dc2a1e601923f41c3d30971be658b3011
+  '@github-tools/sdk@1.16.1': c05d56eb6649fe865d29e50af33fcd2437dfa1aab4a952f1f176165fa3f5e1c0
 
 importers:
 
@@ -21,8 +21,8 @@ importers:
         specifier: ^0.7.1
         version: 0.7.1(@vercel/connect@0.8.0(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3))))(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3)))(react@19.3.0)(vite@8.3.0(@types/node@24.13.4)(yaml@2.9.0))
       '@sentry/node':
-        specifier: 11.0.0-beta.2
-        version: 11.0.0-beta.2
+        specifier: 11.0.0-rc.0
+        version: 11.0.0-rc.0
       '@vercel/blob':
         specifier: ^2.8.0
         version: 2.8.0
@@ -603,8 +603,8 @@ packages:
   '@sec-ant/readable-stream@0.4.1':
     resolution: {integrity: sha512-831qok9r2t8AlxLko40y2ebgSDhenenCatLVeW/uBtnHPyhHOvG0C7TvfgecV+wHzIm5KUICgzmVpWS+IMEAeg==}
 
-  '@sentry/bundler-plugins@11.0.0-beta.2':
-    resolution: {integrity: sha512-1dNkJiBlCwP2plIRJwqRXfxcpvYETdDgZPKDj7OlyOTavctDipb4NstnyYmL1HrHXZJDN21k+lW9DpQm3IPscA==}
+  '@sentry/bundler-plugins@11.0.0-rc.0':
+    resolution: {integrity: sha512-mfRtTo7MNMgAghHsTzcRV5XwdpV+YqdqA4OGgOSRqLEY5H1jxfO8j+orEjUvLk8pCgR4Y1cORsXKqpVXI4nh3w==}
     engines: {node: '>=20.19.0 <22.0.0 || >=22.12.0 <23.0.0 || >=23.2.0'}
     peerDependencies:
       rollup: '>=3.2.0'
@@ -615,30 +615,30 @@ packages:
       webpack:
         optional: true
 
-  '@sentry/conventions@0.20.0':
-    resolution: {integrity: sha512-nAL3tL+xgom6Dbuxq0NCEZZfBNIrUspjDJRcMMRl3WLiBCSeZzNCa7an48IpnrZoVMpAi2NQ2v9rFU+EQziKuQ==}
+  '@sentry/conventions@0.23.0':
+    resolution: {integrity: sha512-+Euyo7CNVecoOusgUnq27oV97oshifgceKfnGnuKfXrPUVWA/cisvii3E1rlvy2yBrKvl9K1gCEo1Jqog5zjEQ==}
     engines: {node: '>=14'}
 
-  '@sentry/core@11.0.0-beta.2':
-    resolution: {integrity: sha512-dci1vUZ1GR4oj5WI6NJC3ilT3DJxliwG1tcN8ONKAvORQHj4+BbWuUKT5YoZJIjj4LWmROH1o+PlrmDjg2U+UA==}
+  '@sentry/core@11.0.0-rc.0':
+    resolution: {integrity: sha512-6KXLKGq1YgysUIzeD0cYQH/8Tg62V+UJV1d9FVNvKb0HnRgbiO9VWCCm1wGyYSENdGPdSa9zOOnk5ZC7WxLaAw==}
     engines: {node: '>=20.19.0 <22.0.0 || >=22.12.0 <23.0.0 || >=23.2.0'}
 
-  '@sentry/node@11.0.0-beta.2':
-    resolution: {integrity: sha512-h6sme3q12aWS2uJAWbXg8hfQ1NRBjMbp0G5Ce7sxaIo/k6386r17iOXYdwQZZ+bE0/AJJ8RXJxvFvFDfVfVQLQ==}
+  '@sentry/node@11.0.0-rc.0':
+    resolution: {integrity: sha512-hztnJEx8Fcyp0wNJgVbrgWIy9jgkefo7A3c7Y7r7wrCwCl5gKwzzo53XYOkY2lf/rjTLaJCG8b21VjHaFldOZw==}
     engines: {node: '>=20.19.0 <22.0.0 || >=22.12.0 <23.0.0 || >=23.2.0'}
 
-  '@sentry/opentelemetry@11.0.0-beta.2':
-    resolution: {integrity: sha512-ltDMwRqjoX023mH7oUpWkOm+V1CrkIeWbdHqFhWQlVR1a/0FbL80mtI/c06bBDJh0AkZ5iLvTpzWXooq3AQW8w==}
+  '@sentry/opentelemetry@11.0.0-rc.0':
+    resolution: {integrity: sha512-28Yy+Qoo84Ckxu40f2sB/NE+J2uacVkT+rD/GnK3+ExZfW/o2nV7eotIwKUprhoHM1w8EaMQusjZAMTzHc4geQ==}
     engines: {node: '>=20.19.0 <22.0.0 || >=22.12.0 <23.0.0 || >=23.2.0'}
     peerDependencies:
       '@opentelemetry/api': ^1.9.0
 
-  '@sentry/server-runtime-injection@11.0.0-beta.2':
-    resolution: {integrity: sha512-U+Xa+NqXS0IqhP2tBcSNk6/q498zsOggh/73TcJ6f5y0IHksN8h9+QId4pSvygh1/n2B0wDHcDB9lvB1ddBX4A==}
+  '@sentry/server-runtime-injection@11.0.0-rc.0':
+    resolution: {integrity: sha512-x8XppxyzDZxweoHlfsW0l12ghquvp79o2UNXOcXETRb+40ud+RF+YdPtnv4yvsrByXScPkNzKVdJSjxevJCcrA==}
     engines: {node: '>=20.19.0 <22.0.0 || >=22.12.0 <23.0.0 || >=23.2.0'}
 
-  '@sentry/server-utils@11.0.0-beta.2':
-    resolution: {integrity: sha512-VUi7BuOWBNV7nM5+w408oQb6WPsM52jFN99aSgK5/GQ5t82G+LCpStf+gyV4ScOMbmzP887sbkD7MuTnNwgvJA==}
+  '@sentry/server-utils@11.0.0-rc.0':
+    resolution: {integrity: sha512-0+nsGmRdz8U+U5Cbe52FVfsBztcSY8v7u37id3lsEOktZQi8uJRQShp7BgvD8+ReXEuoVK/L2w7LxzTdtmxQig==}
     engines: {node: '>=20.19.0 <22.0.0 || >=22.12.0 <23.0.0 || >=23.2.0'}
 
   '@sindresorhus/merge-streams@4.0.0':
@@ -2315,7 +2315,7 @@ snapshots:
 
   '@github-tools/eve-extension@0.7.1(@vercel/connect@0.8.0(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3))))(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3)))(react@19.3.0)(vite@8.3.0(@types/node@24.13.4)(yaml@2.9.0))':
     dependencies:
-      '@github-tools/sdk': 1.16.1(@vercel/connect@0.8.0(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3))))(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3)))(react@19.3.0)(vite@8.3.0(@types/node@24.13.4)(yaml@2.9.0))(zod@4.6.1)
+      '@github-tools/sdk': 1.16.1(patch_hash=c05d56eb6649fe865d29e50af33fcd2437dfa1aab4a952f1f176165fa3f5e1c0)(@vercel/connect@0.8.0(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3))))(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3)))(react@19.3.0)(vite@8.3.0(@types/node@24.13.4)(yaml@2.9.0))(zod@4.6.1)
       eve: 0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3))
       zod: 4.6.1
     optionalDependencies:
@@ -2342,7 +2342,7 @@ snapshots:
       - vite
       - workflow
 
-  '@github-tools/sdk@1.16.1(@vercel/connect@0.8.0(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3))))(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3)))(react@19.3.0)(vite@8.3.0(@types/node@24.13.4)(yaml@2.9.0))(zod@4.6.1)':
+  '@github-tools/sdk@1.16.1(patch_hash=c05d56eb6649fe865d29e50af33fcd2437dfa1aab4a952f1f176165fa3f5e1c0)(@vercel/connect@0.8.0(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3))))(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3)))(react@19.3.0)(vite@8.3.0(@types/node@24.13.4)(yaml@2.9.0))(zod@4.6.1)':
     dependencies:
       ai: 7.0.97(zod@4.4.3)
       evlog: 2.29.0(ai@7.0.97(zod@4.4.3))(eve@0.54.2(@opentelemetry/api@1.9.1)(ai@7.0.97(zod@4.4.3)))(react@19.3.0)(vite@8.3.0(@types/node@24.13.4)(yaml@2.9.0))
@@ -2618,51 +2618,51 @@ snapshots:
 
   '@sec-ant/readable-stream@0.4.1': {}
 
-  '@sentry/bundler-plugins@11.0.0-beta.2':
+  '@sentry/bundler-plugins@11.0.0-rc.0':
     dependencies:
       '@babel/core': 7.29.7(supports-color@8.1.1)
-      '@sentry/core': 11.0.0-beta.2
+      '@sentry/core': 11.0.0-rc.0
       dotenv: 17.4.2
       glob: 13.0.6
       magic-string: 0.30.21
       sentry: 0.44.1
       supports-color: 8.1.1
 
-  '@sentry/conventions@0.20.0': {}
+  '@sentry/conventions@0.23.0': {}
 
-  '@sentry/core@11.0.0-beta.2':
+  '@sentry/core@11.0.0-rc.0':
     dependencies:
-      '@sentry/conventions': 0.20.0
+      '@sentry/conventions': 0.23.0
 
-  '@sentry/node@11.0.0-beta.2':
+  '@sentry/node@11.0.0-rc.0':
     dependencies:
       '@opentelemetry/api': 1.9.1
-      '@sentry/bundler-plugins': 11.0.0-beta.2
-      '@sentry/conventions': 0.20.0
-      '@sentry/core': 11.0.0-beta.2
-      '@sentry/opentelemetry': 11.0.0-beta.2(@opentelemetry/api@1.9.1)
-      '@sentry/server-runtime-injection': 11.0.0-beta.2
-      '@sentry/server-utils': 11.0.0-beta.2(patch_hash=cef28c8127624805773838ed2d39e50dc2a1e601923f41c3d30971be658b3011)
+      '@sentry/bundler-plugins': 11.0.0-rc.0
+      '@sentry/conventions': 0.23.0
+      '@sentry/core': 11.0.0-rc.0
+      '@sentry/opentelemetry': 11.0.0-rc.0(@opentelemetry/api@1.9.1)
+      '@sentry/server-runtime-injection': 11.0.0-rc.0
+      '@sentry/server-utils': 11.0.0-rc.0
     transitivePeerDependencies:
       - rollup
       - webpack
 
-  '@sentry/opentelemetry@11.0.0-beta.2(@opentelemetry/api@1.9.1)':
+  '@sentry/opentelemetry@11.0.0-rc.0(@opentelemetry/api@1.9.1)':
     dependencies:
       '@opentelemetry/api': 1.9.1
-      '@sentry/conventions': 0.20.0
-      '@sentry/core': 11.0.0-beta.2
+      '@sentry/conventions': 0.23.0
+      '@sentry/core': 11.0.0-rc.0
 
-  '@sentry/server-runtime-injection@11.0.0-beta.2':
+  '@sentry/server-runtime-injection@11.0.0-rc.0':
     dependencies:
-      '@sentry/core': 11.0.0-beta.2
-      '@sentry/server-utils': 11.0.0-beta.2(patch_hash=cef28c8127624805773838ed2d39e50dc2a1e601923f41c3d30971be658b3011)
+      '@sentry/core': 11.0.0-rc.0
+      '@sentry/server-utils': 11.0.0-rc.0
 
-  '@sentry/server-utils@11.0.0-beta.2(patch_hash=cef28c8127624805773838ed2d39e50dc2a1e601923f41c3d30971be658b3011)':
+  '@sentry/server-utils@11.0.0-rc.0':
     dependencies:
       '@opentelemetry/api': 1.9.1
-      '@sentry/conventions': 0.20.0
-      '@sentry/core': 11.0.0-beta.2
+      '@sentry/conventions': 0.23.0
+      '@sentry/core': 11.0.0-rc.0
 
   '@sindresorhus/merge-streams@4.0.0': {}
 

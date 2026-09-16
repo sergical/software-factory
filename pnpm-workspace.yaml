@@ -2,5 +2,11 @@ packages:
   - apps/*
 minimumReleaseAgeExclude:
   - eve@0.54.2
+  - '@sentry/bundler-plugins@11.0.0-rc.0'
+  - '@sentry/core@11.0.0-rc.0'
+  - '@sentry/node@11.0.0-rc.0'
+  - '@sentry/opentelemetry@11.0.0-rc.0'
+  - '@sentry/server-runtime-injection@11.0.0-rc.0'
+  - '@sentry/server-utils@11.0.0-rc.0'
 patchedDependencies:
-  '@sentry/server-utils@11.0.0-beta.2': patches/@sentry__server-utils@11.0.0-beta.2.patch
+  '@github-tools/sdk@1.16.1': patches/@github-tools__sdk@1.16.1.patch

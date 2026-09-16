@@ -137,6 +137,14 @@ const PR_SUMMARY_TASK = [
 ].join("\n\n");
 
 /**
+ * Tool-call syntax or a station callback written out as plain text: a model
+ * imitating a tool call or inventing a station's result instead of waiting
+ * for it. Kept in step with `evals/replay/replay.mjs`.
+ */
+const TOOL_TEXT =
+  /<function|<tool_call|\[TOOL_CALLS\]|"toolCallId"|"agentId"|"taskId"/;
+
+/**
  * GitHub channel: the factory's main intake and delivery surface, as
  * "Foreman".
  *
@@ -194,10 +202,29 @@ const PR_SUMMARY_TASK = [
  *   mention-stripping correct, and `onComment`'s gate is what keeps a reply
  *   an authorization signal: only mentions from owners, members, and
  *   collaborators ever reach the waiting session.
+ * - `message.completed` replaces the built-in reply poster only to drop
+ *   replies that match `TOOL_TEXT`. A turn's closing text lands on the
+ *   thread as a comment, and a fabricated station result posted there reads
+ *   as real progress. Replies stay far below GitHub's 65,536-character
+ *   comment limit, so they are posted whole.
  */
 export default githubChannel({
   botName: resolveBotName,
   credentials: githubCredentials,
+  events: {
+    async "message.completed"(data, channel) {
+      if (data.finishReason === "tool-calls" || !data.message) {
+        return;
+      }
+      if (TOOL_TEXT.test(data.message)) {
+        console.warn(
+          `[github] dropped a reply with tool-call text: ${data.message.slice(0, 80)}`
+        );
+        return;
+      }
+      await channel.thread.post(data.message);
+    },
+  },
   onCheckSuite: (ctx, suite) => {
     const raw = suite.raw as {
       head_branch?: unknown;

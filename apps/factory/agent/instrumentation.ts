@@ -4,7 +4,6 @@ import {
   getCurrentScope,
   httpIntegration,
   init,
-  setConversationId,
   vercelAIIntegration,
 } from "@sentry/node";
 import {
@@ -46,7 +45,6 @@ export default defineInstrumentation({
           .digest("hex")
           .slice(0, 32),
       });
-      setConversationId(rootSessionId);
       scope.setAttributes({
         "factory.issue_number":
           intakeIssueNumber(session.auth.current) ??
@@ -61,15 +59,6 @@ export default defineInstrumentation({
   },
   setup: () => {
     init({
-      integrations: [
-        consoleLoggingIntegration(),
-        httpIntegration({ disableIncomingRequestSpans: true }),
-        // Eve passes recordInputs/recordOutputs per call from its channel audience policy, and a
-        // channel without a declared audience resolves to false outside `eve dev`. The integration
-        // option wins over the per-call value, so the transcript reaches Sentry on every channel.
-        vercelAIIntegration({ recordInputs: true, recordOutputs: true }),
-      ],
-      tracesSampleRate: 1,
       // The gateway answers with the provider's own alias ("mistral-large-latest"),
       // and Sentry prices a call from the name in the response. The alias still
       // carries the previous generation's price list, so the bill reads about four
@@ -90,6 +79,15 @@ export default defineInstrumentation({
         }
         return span;
       },
+      integrations: [
+        consoleLoggingIntegration(),
+        httpIntegration({ disableIncomingRequestSpans: true }),
+        // Eve passes recordInputs/recordOutputs per call from its channel audience policy, and a
+        // channel without a declared audience resolves to false outside `eve dev`. The integration
+        // option wins over the per-call value, so the transcript reaches Sentry on every channel.
+        vercelAIIntegration({ recordInputs: true, recordOutputs: true }),
+      ],
+      tracesSampleRate: 1,
     });
   },
 });
