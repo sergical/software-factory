@@ -1,39 +1,16 @@
-import type { Filter } from "../lib/todos";
-
-type FooterProps = {
-  remaining: number;
-  filter: Filter;
-  onFilterChange: (filter: Filter) => void;
-  onClearCompleted: () => void;
-};
-
-const FILTERS: Filter[] = ["all", "active", "completed"];
-
-export function Footer({
-  remaining,
-  filter,
-  onFilterChange,
-  onClearCompleted,
-}: FooterProps) {
-  return (
-    <footer className="footer">
-      {/* Bug: should pluralise "item" when remaining !== 1. */}
-      <span className="count">{remaining} items left</span>
-      <div className="filters">
-        {FILTERS.map((option) => (
-          <button
-            key={option}
-            type="button"
-            className={option === filter ? "active" : undefined}
-            onClick={() => onFilterChange(option)}
-          >
-            {option}
-          </button>
-        ))}
-      </div>
-      <button type="button" onClick={onClearCompleted}>
-        Clear completed
-      </button>
-    </footer>
-  );
-}
+24:           <button
+25:             key={option}
+26:             type="button"
+27:             className={option === filter ? "active" : undefined}
+28:             onClick={() => onFilterChange(option)}
+29:             aria-pressed={option === filter}
+30:             {option}
+31:           </button>
+32:         ))}
+33:       </div>
+34:       <button type="button" onClick={onClearCompleted}>
+35:         Clear completed
+36:       </button>
+37:     </footer>
+38:   );
+39: }
