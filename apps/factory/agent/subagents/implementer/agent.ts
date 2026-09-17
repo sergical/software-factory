@@ -1,5 +1,9 @@
 import { defineAgent } from "eve";
-import { MODELS, PROMPT_CACHE } from "../../lib/models.js";
+import {
+  CONTEXT_WINDOW_TOKENS,
+  MODELS,
+  PROMPT_CACHE,
+} from "../../lib/models.js";
 
 /**
  * Station 3: implementation.
@@ -23,6 +27,7 @@ export default defineAgent({
     "as one; on a revision run it also passes the existing branch and the reviewer's " +
     "findings.",
   model: MODELS.implementer,
+  modelContextWindowTokens: CONTEXT_WINDOW_TOKENS.implementer,
   modelOptions: PROMPT_CACHE.implementer,
   outputSchema: {
     additionalProperties: false,

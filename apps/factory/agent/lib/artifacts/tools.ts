@@ -9,6 +9,10 @@ import {
   MAX_ARTIFACT_TITLE_LENGTH,
 } from "./config.js";
 
+const ARTIFACT_NOT_FOUND =
+  "No artifact exists with this id. Use only an id that a message gave you; when none was given, work from the message itself.";
+const NOT_FOUND_RESULT = { found: false as const, note: ARTIFACT_NOT_FOUND };
+
 /**
  * The handoff-artifact tools.
  *
@@ -128,12 +132,12 @@ export const readArtifactTool = () =>
     async execute({ id }) {
       const key = artifactKey(id);
       if (!key) {
-        return { found: false };
+        return NOT_FOUND_RESULT;
       }
       try {
         const doc = await readDocument(key);
         if (!doc.found) {
-          return { found: false };
+          return NOT_FOUND_RESULT;
         }
         return {
           createdAt: doc.uploadedAt,
@@ -142,7 +146,7 @@ export const readArtifactTool = () =>
           markdown: doc.content,
         };
       } catch {
-        return { found: false };
+        return NOT_FOUND_RESULT;
       }
     },
     inputSchema: z.object({
@@ -166,5 +170,6 @@ export const readArtifactTool = () =>
         ),
       id: z.string().optional(),
       markdown: z.string().optional(),
+      note: z.string().optional(),
     }),
   });

@@ -1,4 +1,5 @@
 import type { ApprovalContext, ApprovalStatus } from "eve/tools/approval";
+import { deliveryHold } from "../pipeline.js";
 import {
   intakeIssueNumber,
   isAutonomous,
@@ -140,14 +141,19 @@ export function closeIssuePolicy(): ApprovalStatus {
 }
 
 /**
- * `createPullRequest`: a draft runs for every caller, anything that can be
- * merged follows {@link shipPolicy}.
+ * `createPullRequest`: denied while {@link deliveryHold} holds the pipeline;
+ * otherwise a draft runs for every caller, and anything that can be merged
+ * follows {@link shipPolicy}.
  *
  * @remarks
  * A draft cannot merge, so an unattended run can deliver its finished work
  * without a card while marking the PR ready stays a human act.
  */
 export function createPullRequestPolicy(ctx: ApprovalContext): ApprovalStatus {
+  const hold = deliveryHold();
+  if (hold) {
+    return { reason: hold, type: "denied" };
+  }
   const input = ctx.toolInput as { draft?: unknown } | undefined;
   if (input?.draft === true) {
     return "not-applicable";

@@ -15,13 +15,14 @@
     "dev": "eve dev",
     "eval": "eve eval",
     "fix": "ultracite fix",
+    "replay": "node --env-file=.env.local evals/replay/replay.mjs",
     "start": "eve start",
     "typecheck": "tsc",
     "validate": "pnpm run check && pnpm run typecheck && eve info"
   },
   "dependencies": {
     "@github-tools/eve-extension": "^0.7.1",
-    "@sentry/node": "11.0.0-beta.2",
+    "@sentry/node": "11.0.0-rc.0",
     "@vercel/blob": "^2.8.0",
     "@vercel/connect": "0.8.0",
     "ai": "^7.0.70",

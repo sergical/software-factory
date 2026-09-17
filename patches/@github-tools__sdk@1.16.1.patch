@@ -1,0 +1,13 @@
+diff --git a/dist/eve-runtime-Cfyy1tzp.mjs b/dist/eve-runtime-Cfyy1tzp.mjs
+index 028c7c0168c3627facf1908648f8632b3522fc56..fb4afd839b24ee6fe01e53574d977c2e9dc1fa1c 100644
+--- a/dist/eve-runtime-Cfyy1tzp.mjs
++++ b/dist/eve-runtime-Cfyy1tzp.mjs
+@@ -102,7 +102,7 @@ function formatGithubEveToolOutput(name, output) {
+ 	return format(stripped);
+ }
+ function isErrorPayload(output) {
+-	return output != null && typeof output === "object" && !Array.isArray(output) && typeof output.error === "string";
++	return output != null && typeof output === "object" && !Array.isArray(output) && (typeof output.error === "string" || output.error != null && typeof output.error === "object");
+ }
+ function createToolRegistry(ctx) {
+ 	const commitExtras = {
