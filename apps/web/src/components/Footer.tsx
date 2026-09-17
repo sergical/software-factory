@@ -18,7 +18,9 @@ export function Footer({
   return (
     <footer className="footer">
       {/* Bug: should pluralise "item" when remaining !== 1. */}
-      <span className="count">{remaining} item{remaining !== 1 ? 's' : ''} left</span>
+      <span className="count">
+        {remaining} item{remaining !== 1 ? "s" : ""} left
+      </span>
       <div className="filters">
         {FILTERS.map((option) => (
           <button

@@ -41,7 +41,7 @@ describe("App", () => {
     await user.type(screen.getByLabelText("New todo"), "buy milk");
     await user.click(screen.getByRole("button", { name: "Add" }));
 
-     expect(screen.getByText("1 item left")).toBeInTheDocument();
+    expect(screen.getByText("1 item left")).toBeInTheDocument();
   });
 
   it("decrements the remaining count once a todo is completed", async () => {
