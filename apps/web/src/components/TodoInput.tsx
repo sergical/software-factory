@@ -10,12 +10,12 @@ export function TodoInput({ onAdd }: TodoInputProps) {
 
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // Bug: this only blocks a fully empty string, not whitespace-only
-    // input, and does not trim the value before adding it.
-    if (value === "") {
+    const trimmedValue = value.trim();
+    if (trimmedValue === "") {
+      event.currentTarget.querySelector("input")?.focus();
       return;
     }
-    onAdd(value);
+    onAdd(trimmedValue);
     setValue("");
   }
 
